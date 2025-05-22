@@ -6,11 +6,19 @@
     </div>
 
     <!-- Arama Çubuğu -->
-    <input
-      type="text"
-      class="search-bar"
-      placeholder="Aramak istediğiniz ürünü yazın..."
-    />
+    <div class="search-container">
+      <input
+        v-model="searchQuery"
+        type="text"
+        class="search-bar"
+        placeholder="Aramak istediğiniz ürünü yazın..."
+        @keyup.enter="handleSearch"
+      />
+      <button class="search-button" @click="handleSearch">
+        <i class="fas fa-search"></i>
+        Ara
+      </button>
+    </div>
 
     <!-- Kullanıcı İşlemleri -->
     <div class="user-actions">
@@ -39,7 +47,8 @@ export default {
   name: "SiteHeader",
   data() {
     return {
-      isAuthenticated: false
+      isAuthenticated: false,
+      searchQuery: ''
     };
   },
   created() {
@@ -55,6 +64,15 @@ export default {
     handleLogout() {
       auth.logout();
       this.$router.push('/login');
+    },
+    handleSearch() {
+      if (this.searchQuery.trim()) {
+        // Arama sonuçları sayfasına yönlendir ve query parametresi olarak arama terimini ekle
+        this.$router.push({
+          path: '/search',
+          query: { q: this.searchQuery }
+        });
+      }
     }
   }
 };
@@ -86,11 +104,41 @@ export default {
   color: inherit;
 }
 
-.search-bar {
+.search-container {
+  display: flex;
   width: 40%;
+  gap: 10px;
+}
+
+.search-bar {
+  flex: 1;
   padding: 10px;
   border-radius: 5px;
   border: none;
+  font-size: 14px;
+}
+
+.search-bar:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+}
+
+.search-button {
+  padding: 10px 20px;
+  background-color: #050505;
+  color: #ffc107;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.search-button:hover {
+  background-color: #f7e6a3;
+  color: #050505;
 }
 
 .user-actions {

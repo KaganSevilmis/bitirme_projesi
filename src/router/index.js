@@ -4,6 +4,7 @@ import LoginPage from '../components/LoginPage.vue';
 import RegisterPage from '../components/RegisterPage.vue';
 import PostAdPage from '../components/PostAdPage.vue';
 import CategoryPage from '../components/CategoryPage.vue';  // CategoryPage bileşenini içe aktarın
+import SearchResults from '../components/SearchResults.vue';
 
 const routes = [
   {
@@ -31,6 +32,11 @@ const routes = [
     name: 'CategoryPage',
     component: CategoryPage,
     props: true,  // URL parametrelerini prop olarak ilet
+  },
+  {
+    path: '/search',
+    name: 'SearchResults',
+    component: SearchResults,
   },
 ];
 
