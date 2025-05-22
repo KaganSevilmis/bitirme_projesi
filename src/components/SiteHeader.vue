@@ -14,22 +14,49 @@
 
     <!-- Kullanıcı İşlemleri -->
     <div class="user-actions">
-      <router-link to="/login">
-        <button>Giriş Yap</button>
-      </router-link>
-      <router-link to="/register">
-        <button>Üye Ol</button>
-      </router-link>
-      <router-link to="/post-ad">
-        <button>Ücretsiz İlan Ver</button>
-      </router-link>
+      <template v-if="!isAuthenticated">
+        <router-link to="/login">
+          <button>Giriş Yap</button>
+        </router-link>
+        <router-link to="/register">
+          <button>Üye Ol</button>
+        </router-link>
+      </template>
+      <template v-else>
+        <router-link to="/post-ad">
+          <button>Ücretsiz İlan Ver</button>
+        </router-link>
+        <button @click="handleLogout" class="logout-button">Çıkış Yap</button>
+      </template>
     </div>
   </header>
 </template>
 
 <script>
+import { auth } from '../store/auth';
+
 export default {
   name: "SiteHeader",
+  data() {
+    return {
+      isAuthenticated: false
+    };
+  },
+  created() {
+    // Sayfa yüklendiğinde auth durumunu kontrol et
+    this.isAuthenticated = auth.checkAuth();
+    
+    // Auth durumu değişikliklerini dinle
+    setInterval(() => {
+      this.isAuthenticated = auth.state.isAuthenticated;
+    }, 1000);
+  },
+  methods: {
+    handleLogout() {
+      auth.logout();
+      this.$router.push('/login');
+    }
+  }
 };
 </script>
 
@@ -54,6 +81,11 @@ export default {
   text-decoration: none;
 }
 
+.logo a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .search-bar {
   width: 40%;
   padding: 10px;
@@ -73,13 +105,20 @@ export default {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-}
-
-.logo a {
-text-decoration: none;
+  transition: background-color 0.3s ease;
 }
 
 .user-actions button:hover {
   background-color: #f7e6a3;
+  color: #050505;
+}
+
+.logout-button {
+  background-color: #dc3545 !important;
+}
+
+.logout-button:hover {
+  background-color: #c82333 !important;
+  color: #ffc107 !important;
 }
 </style>

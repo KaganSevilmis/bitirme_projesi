@@ -38,6 +38,7 @@
   
   <script>
   import axios from 'axios';
+  import { auth } from '../store/auth';
 
   export default {
     name: "LoginPage",
@@ -59,7 +60,10 @@
         this.successMessage = null;
 
         try {
-          await axios.post('/api/users/login', this.formData);
+          const response = await axios.post('/api/users/login', this.formData);
+          // Auth store'u güncelle
+          auth.login(response.data);
+          
           this.successMessage = 'Giriş başarılı! Yönlendiriliyorsunuz...';
           
           // Form verilerini temizle
