@@ -22,7 +22,6 @@
             <i class="fas fa-map-marker-alt"></i>
             {{ product.location }}
           </span>
-          <span class="date">İlan Tarihi: {{ formatDate(product.createdAt) }}</span>
         </div>
       </div>
 
@@ -39,43 +38,6 @@
           <div class="price-section">
             <h2>Fiyat</h2>
             <div class="price">{{ product.price }}</div>
-          </div>
-
-          <!-- VASITA kategorisi için detaylar -->
-          <div v-if="product.category === 'VASITA'" class="details-section">
-            <h2>Araç Bilgileri</h2>
-            <ul class="details-list">
-              <li><strong>Marka:</strong> {{ product.details?.brand || '-' }}</li>
-              <li><strong>Model:</strong> {{ product.details?.model || '-' }}</li>
-              <li><strong>Yıl:</strong> {{ product.details?.year || '-' }}</li>
-              <li><strong>Yakıt:</strong> {{ product.details?.fuel || '-' }}</li>
-              <li><strong>Vites:</strong> {{ product.details?.transmission || '-' }}</li>
-              <li><strong>Kilometre:</strong> {{ product.details?.km ? `${product.details.km} km` : '-' }}</li>
-              <li><strong>Motor Gücü:</strong> {{ product.details?.enginePower ? `${product.details.enginePower} HP` : '-' }}</li>
-            </ul>
-          </div>
-
-          <!-- EMLAK kategorisi için detaylar -->
-          <div v-if="product.category === 'EMLAK'" class="details-section">
-            <h2>Emlak Bilgileri</h2>
-            <ul class="details-list">
-              <li><strong>Emlak Tipi:</strong> {{ product.details?.propertyType || '-' }}</li>
-              <li><strong>Metrekare:</strong> {{ product.details?.squareMeters ? `${product.details.squareMeters} m²` : '-' }}</li>
-              <li><strong>Oda Sayısı:</strong> {{ product.details?.rooms || '-' }}</li>
-              <li><strong>Bulunduğu Kat:</strong> {{ product.details?.floor ? `${product.details.floor}. Kat` : '-' }}</li>
-              <li><strong>Bina Yaşı:</strong> {{ product.details?.buildingAge ? `${product.details.buildingAge} yıl` : '-' }}</li>
-              <li><strong>Isıtma:</strong> {{ product.details?.heating || '-' }}</li>
-            </ul>
-          </div>
-
-          <!-- İKİNCİ EL VE SIFIR ALIŞVERİŞ kategorisi için detaylar -->
-          <div v-if="product.category === 'IKINCI EL VE SIFIR ALISVERIS'" class="details-section">
-            <h2>Ürün Bilgileri</h2>
-            <ul class="details-list">
-              <li><strong>Durumu:</strong> {{ product.details?.condition || '-' }}</li>
-              <li><strong>Marka:</strong> {{ product.details?.brand || '-' }}</li>
-              <li><strong>Garanti:</strong> {{ product.details?.warranty || '-' }}</li>
-            </ul>
           </div>
 
           <div class="description-section">
@@ -100,8 +62,6 @@
         <h2>Önemli Bilgiler</h2>
         <ul>
           <li>İlan numarası: {{ product.id }}</li>
-          <li>İlan tarihi: {{ formatDate(product.createdAt) }}</li>
-          <li>Son güncelleme: {{ formatDate(product.updatedAt) }}</li>
         </ul>
       </div>
     </div>
