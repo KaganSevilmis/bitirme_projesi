@@ -157,16 +157,6 @@
       </div>
 
       <div class="form-group">
-        <label for="description">İlan Açıklaması</label>
-        <textarea 
-          id="description"
-          v-model="formData.description"
-          placeholder="Ürün detaylarını buraya yazın..."
-          required
-        ></textarea>
-      </div>
-
-      <div class="form-group">
         <label for="price">Fiyat</label>
         <input 
           type="text" 
@@ -232,13 +222,55 @@ export default {
       // Kategori değiştiğinde details objesini sıfırla
       this.formData.details = {};
     },
+
+    generateDetailedDescription() {
+      let detailedDescription = '';
+      
+      if (this.formData.category === 'VASITA') {
+        detailedDescription = `ARAÇ DETAYLARI\n`;
+        detailedDescription += `Marka: ${this.formData.details.brand}\n`;
+        detailedDescription += `Model: ${this.formData.details.model}\n`;
+        detailedDescription += `Yıl: ${this.formData.details.year}\n`;
+        detailedDescription += `Yakıt: ${this.formData.details.fuel}\n`;
+        detailedDescription += `Vites: ${this.formData.details.transmission}\n`;
+        detailedDescription += `Kilometre: ${this.formData.details.km} km\n`;
+        detailedDescription += `Motor Gücü: ${this.formData.details.enginePower} HP`;
+      } 
+      else if (this.formData.category === 'EMLAK') {
+        detailedDescription = `EMLAK DETAYLARI\n`;
+        detailedDescription += `Emlak Tipi: ${this.formData.details.propertyType}\n`;
+        detailedDescription += `Metrekare: ${this.formData.details.squareMeters} m²\n`;
+        detailedDescription += `Oda Sayısı: ${this.formData.details.rooms}\n`;
+        detailedDescription += `Bulunduğu Kat: ${this.formData.details.floor}\n`;
+        detailedDescription += `Bina Yaşı: ${this.formData.details.buildingAge}\n`;
+        detailedDescription += `Isıtma: ${this.formData.details.heating}`;
+      }
+      else if (this.formData.category === 'IKINCI EL VE SIFIR ALISVERIS') {
+        detailedDescription = `ÜRÜN DETAYLARI\n`;
+        detailedDescription += `Durumu: ${this.formData.details.condition}\n`;
+        detailedDescription += `Marka: ${this.formData.details.brand}\n`;
+        detailedDescription += `Garanti Durumu: ${this.formData.details.warranty}`;
+      }
+
+      return detailedDescription;
+    },
+
     async handleSubmit() {
       this.loading = true;
       this.error = null;
       this.successMessage = null;
 
       try {
-        await axios.post('http://localhost:7000/api/products/new', this.formData);
+        // Detaylı açıklamayı oluştur
+        const detailedDescription = this.generateDetailedDescription();
+        
+        // Form verilerini hazırla
+        const postData = {
+          ...this.formData,
+          description: detailedDescription
+        };
+
+        await axios.post('http://localhost:7000/api/products/new', postData);
         
         this.successMessage = 'İlanınız başarıyla eklendi! Ana sayfaya yönlendiriliyorsunuz...';
         

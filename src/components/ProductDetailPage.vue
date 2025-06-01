@@ -42,7 +42,7 @@
 
           <div class="description-section">
             <h2>İlan Detayı</h2>
-            <p>{{ product.description || 'Açıklama bulunmuyor.' }}</p>
+            <p class="product-details">{{ product.description }}</p>
           </div>
 
           <div class="contact-section">
@@ -361,5 +361,20 @@ export default {
     flex-direction: column;
     gap: 10px;
   }
+}
+
+.product-details {
+  white-space: pre-line;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 10px 0;
+}
+
+.product-details strong {
+  color: #333;
+  font-weight: 600;
 }
 </style> 
