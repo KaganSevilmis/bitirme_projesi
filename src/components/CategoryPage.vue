@@ -25,7 +25,21 @@
             <p class="description">{{ product.description }}</p>
             <p class="location">{{ product.location }}</p>
             <p class="price">{{ product.price }}</p>
-            <button class="details-button">Detayları Gör</button>
+            <router-link 
+              :to="{ 
+                name: 'ProductDetail', 
+                params: { 
+                  id: String(product.id || product._id)
+                }
+              }" 
+              class="details-button" 
+              custom 
+              v-slot="{ navigate }"
+            >
+              <button @click="navigate" role="link" class="details-button">
+                Detayları Gör
+              </button>
+            </router-link>
           </div>
         </div>
       </div>
@@ -71,6 +85,10 @@ export default {
     try {
       const response = await axios.get('/api/products/all');
       console.log('API yanıtı:', response.data);
+      // Her ürünün ID'sini kontrol et
+      response.data.forEach(product => {
+        console.log('Ürün ID:', product.id, 'Ürün:', product);
+      });
       this.products = response.data;
       this.loading = false;
     } catch (err) {

@@ -25,6 +25,138 @@
       </div>
 
       <div class="form-group">
+        <label for="category">Kategori</label>
+        <select 
+          id="category"
+          v-model="formData.category"
+          required
+          @change="handleCategoryChange"
+        >
+          <option value="">Kategori Seçin</option>
+          <option value="VASITA">VASITA</option>
+          <option value="EMLAK">EMLAK</option>
+          <option value="IKINCI EL VE SIFIR ALISVERIS">IKINCI EL VE SIFIR ALISVERIS</option>
+        </select>
+      </div>
+
+      <!-- VASITA kategorisi için özel alanlar -->
+      <div v-if="formData.category === 'VASITA'" class="category-specific-fields">
+        <div class="form-group">
+          <label for="brand">Marka</label>
+          <input type="text" id="brand" v-model="formData.details.brand" required placeholder="Örn: Audi" />
+        </div>
+        <div class="form-group">
+          <label for="model">Model</label>
+          <input type="text" id="model" v-model="formData.details.model" required placeholder="Örn: A4" />
+        </div>
+        <div class="form-group">
+          <label for="year">Yıl</label>
+          <input type="number" id="year" v-model="formData.details.year" required placeholder="Örn: 2020" />
+        </div>
+        <div class="form-group">
+          <label for="fuel">Yakıt</label>
+          <select id="fuel" v-model="formData.details.fuel" required>
+            <option value="">Seçiniz</option>
+            <option value="Benzin">Benzin</option>
+            <option value="Dizel">Dizel</option>
+            <option value="LPG">LPG</option>
+            <option value="Elektrik">Elektrik</option>
+            <option value="Hibrit">Hibrit</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="transmission">Vites</label>
+          <select id="transmission" v-model="formData.details.transmission" required>
+            <option value="">Seçiniz</option>
+            <option value="Manuel">Manuel</option>
+            <option value="Otomatik">Otomatik</option>
+            <option value="Yarı Otomatik">Yarı Otomatik</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="km">Kilometre</label>
+          <input type="number" id="km" v-model="formData.details.km" required placeholder="Örn: 50000" />
+        </div>
+        <div class="form-group">
+          <label for="enginePower">Motor Gücü (HP)</label>
+          <input type="number" id="enginePower" v-model="formData.details.enginePower" required placeholder="Örn: 150" />
+        </div>
+      </div>
+
+      <!-- EMLAK kategorisi için özel alanlar -->
+      <div v-if="formData.category === 'EMLAK'" class="category-specific-fields">
+        <div class="form-group">
+          <label for="propertyType">Emlak Tipi</label>
+          <select id="propertyType" v-model="formData.details.propertyType" required>
+            <option value="">Seçiniz</option>
+            <option value="Daire">Daire</option>
+            <option value="Villa">Villa</option>
+            <option value="Müstakil Ev">Müstakil Ev</option>
+            <option value="Arsa">Arsa</option>
+            <option value="İş Yeri">İş Yeri</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="squareMeters">Metrekare</label>
+          <input type="number" id="squareMeters" v-model="formData.details.squareMeters" required placeholder="Örn: 120" />
+        </div>
+        <div class="form-group">
+          <label for="rooms">Oda Sayısı</label>
+          <select id="rooms" v-model="formData.details.rooms" required>
+            <option value="">Seçiniz</option>
+            <option value="1+0">1+0</option>
+            <option value="1+1">1+1</option>
+            <option value="2+1">2+1</option>
+            <option value="3+1">3+1</option>
+            <option value="4+1">4+1</option>
+            <option value="5+">5+</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="floor">Bulunduğu Kat</label>
+          <input type="number" id="floor" v-model="formData.details.floor" required placeholder="Örn: 3" />
+        </div>
+        <div class="form-group">
+          <label for="buildingAge">Bina Yaşı</label>
+          <input type="number" id="buildingAge" v-model="formData.details.buildingAge" required placeholder="Örn: 5" />
+        </div>
+        <div class="form-group">
+          <label for="heating">Isıtma</label>
+          <select id="heating" v-model="formData.details.heating" required>
+            <option value="">Seçiniz</option>
+            <option value="Doğalgaz">Doğalgaz</option>
+            <option value="Merkezi">Merkezi</option>
+            <option value="Soba">Soba</option>
+            <option value="Klima">Klima</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- İKİNCİ EL VE SIFIR ALIŞVERİŞ kategorisi için özel alanlar -->
+      <div v-if="formData.category === 'IKINCI EL VE SIFIR ALISVERIS'" class="category-specific-fields">
+        <div class="form-group">
+          <label for="condition">Durumu</label>
+          <select id="condition" v-model="formData.details.condition" required>
+            <option value="">Seçiniz</option>
+            <option value="Sıfır">Sıfır</option>
+            <option value="İkinci El">İkinci El</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="brand">Marka</label>
+          <input type="text" id="brand" v-model="formData.details.brand" required placeholder="Ürün markası" />
+        </div>
+        <div class="form-group">
+          <label for="warranty">Garanti Durumu</label>
+          <select id="warranty" v-model="formData.details.warranty" required>
+            <option value="">Seçiniz</option>
+            <option value="Var">Var</option>
+            <option value="Yok">Yok</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
         <label for="description">İlan Açıklaması</label>
         <textarea 
           id="description"
@@ -67,20 +199,6 @@
         />
       </div>
 
-      <div class="form-group">
-        <label for="category">Kategori</label>
-        <select 
-          id="category"
-          v-model="formData.category"
-          required
-        >
-          <option value="">Kategori Seçin</option>
-          <option value="VASITA">VASITA</option>
-          <option value="EMLAK">EMLAK</option>
-          <option value="IKINCI EL VE SIFIR ALISVERIS">IKINCI EL VE SIFIR ALISVERIS</option>
-        </select>
-      </div>
-
       <button type="submit" :disabled="loading">
         {{ loading ? 'İlan Ekleniyor...' : 'İlan Ver' }}
       </button>
@@ -101,7 +219,8 @@ export default {
         price: '',
         imageUrl: '',
         location: '',
-        category: ''
+        category: '',
+        details: {}
       },
       loading: false,
       error: null,
@@ -109,6 +228,10 @@ export default {
     };
   },
   methods: {
+    handleCategoryChange() {
+      // Kategori değiştiğinde details objesini sıfırla
+      this.formData.details = {};
+    },
     async handleSubmit() {
       this.loading = true;
       this.error = null;
@@ -126,7 +249,8 @@ export default {
           price: '',
           imageUrl: '',
           location: '',
-          category: ''
+          category: '',
+          details: {}
         };
 
         // 2 saniye sonra ana sayfaya yönlendir
@@ -147,7 +271,7 @@ export default {
 
 <style scoped>
 .post-ad-page {
-  max-width: 600px;
+  max-width: 800px;
   margin: 40px auto;
   padding: 20px;
   background-color: #fff;
@@ -162,6 +286,13 @@ h2 {
 }
 
 .form-group {
+  margin-bottom: 20px;
+}
+
+.category-specific-fields {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
   margin-bottom: 20px;
 }
 

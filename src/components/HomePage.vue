@@ -27,7 +27,21 @@
                 <p class="description">{{ product.description }}</p>
                 <p class="location">{{ product.location }}</p>
                 <p class="price">{{ product.price }}</p>
-                <button class="details-button">Detayları Gör</button>
+                <router-link 
+                  :to="{ 
+                    name: 'ProductDetail', 
+                    params: { 
+                      id: String(product.id || product._id)
+                    }
+                  }" 
+                  class="details-button" 
+                  custom 
+                  v-slot="{ navigate }"
+                >
+                  <button @click="navigate" role="link" class="details-button">
+                    Detayları Gör
+                  </button>
+                </router-link>
               </div>
             </div>
           </div>

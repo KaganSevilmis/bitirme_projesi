@@ -38,6 +38,12 @@ const routes = [
     name: 'SearchResults',
     component: SearchResults,
   },
+  {
+    path: '/product/:id',
+    name: 'ProductDetail',
+    component: () => import('../components/CarDetailPage.vue'),
+    props: true
+  },
 ];
 
 const router = createRouter({
